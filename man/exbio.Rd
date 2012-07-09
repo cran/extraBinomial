@@ -5,17 +5,15 @@
 Extra-binomial approach for pooled sequencing data
 }
 \description{
-This funtion tests for differences in minor allele frequency between
-groups and is based on extra-binomial variation model for pooled sequencing data. 
+This funtion tests for differences in minor allele frequency between groups and is based on extra-binomial variation model for pooled sequencing data. 
 }
 \usage{
-exbio(R, R.alt, cc, n, tol = 0.001, a.start = 1, b.start = 1, max.it =
-1000, digits = NULL)
+exbio(R, R.alt, cc, n, tol = 0.001, a.start = 1, b.start = 1, max.it = 1000, digits = NULL, model.maf = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{R}{
- A matrix with rows indexed by SNPs and columns by pools. The entries are counts of allele 1.
+A matrix with rows indexed by SNPs and columns by pools. The entries are counts of allele 1.
 }
   \item{R.alt}{
 A similarly formatted matrix containing the counts of allele 2.
@@ -25,22 +23,29 @@ A case/control indicator vector with length = number of pools containing 0s (con
 }
   \item{n}{
 Number of chromosomes (twice the number of subjects) in each pooled sample.
+
 }
   \item{tol}{
-Maximum difference between coefficient values in successive glm before
-we can stop, the default=0.001.
+Maximum difference between coefficient values in successive glm before we can stop, the default=0.001.
+
 }
   \item{a.start}{
 An intial value for the parameter a in linear regression, the default=1.
+
 }
   \item{b.start}{
 An intial value for the parameter b in linear regression, the default=1.
 }
   \item{max.it}{
 Maximum iterations, the default=1000.
+
 }
   \item{digits}{
 How many significant digits are to be used for allele frequency and p-value. The default, 'NULL', uses 'getOption(digits)'.
+
+}
+  \item{model.maf}{
+A logical value indicating whether to allow the modelled error structure to depend on allele frequency (the default) or just read depth. The default=TRUE.
 }
 }
 \details{
@@ -56,7 +61,7 @@ R and R.alt contain the read counts for the major allele
   depth of pool j for SNP i. Given the expected quantities:
   E(r2)=1/W=a/n+b/N,  the parameters a and b can be estimated by linear
   regression of r2 on 1/N, giving a/n as the intercept and b as the
-  slope. This regression is carried out using generalized linear model
+  slope. If model.maf=TRUE, W=1/(a/n+b/N+b2*p+b3*p^2) and two additional parameters (b2 and b3) are estimated. This regression is carried out using generalized linear model
   (GLM) by first adopting Gaussian errors to estimate a relatively good
   start value of a and b, and then using these start values to do GLM
   with gamma errors and identity link because both a and b are
@@ -74,15 +79,16 @@ A list containing the following components:
    minor allele frequency of controls; the second shows the minor
    allele freqeuncy of cases; the third shows the p-value. Each row stands for a SNP.}  
 \item{parameters}{a character vector indicating the values of the
-  parameters a and b in the linear regression and and the times of iteration.}
+  parameters a and b (and b2, b3 if model.maf=TRUE) in the linear regression and and the times of iteration.}
+
 }
 \references{
-Yang et al. "Extra-binomial variation approach for reanalysis of pooled
-DNA sequencing data", under review.
+Yang et al. "Extra-binomial variation approach for analysis of pooled DNA sequencing data", under review.
 }
 \author{
-Xin Yang
+Xin Yang, Chris Wallace
 }
+
 
 \examples{
 R<-matrix(c(1409,1530,1490,1630,924,998,1000,1012),nrow=2,ncol=4,byrow=TRUE)
@@ -92,4 +98,5 @@ n=96
 exbio(R, R.alt, cc, n, max.it = 100, digits=3)
 ##=> p.value = 9.91e-01 for SNP1 and 4.01e-11 for SNP2,
 ##so association for SNP2 is established, but not for SNP1.
+
 }

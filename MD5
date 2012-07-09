@@ -1,7 +1,5 @@
-e88ca3e5519c996d8ffb28d71327b0a6 *DESCRIPTION
-b8e1da23b571ac2d66c78b7962cb807e *NAMESPACE
-876065887d12e4c90cddd5eeca0c35af *R/exbio-function-v2.R
-86efe2da120009300a7a925eae409a1d *R/simulation-function.R
-ab18ca95678dd7e688b31b29628aab33 *man/exbio.Rd
-180dcd2139fbc8da8ebc6b36f0078f5f *man/extraBinomial-package.Rd
-0fd005823e5131f22abb4620b4ae7692 *man/mysim.Rd
+3a7acdbac947682371db2d61fc425809 *DESCRIPTION
+587ca9b7d7dd08dcaf56d6feb4c11981 *NAMESPACE
+10e68e90f174cd67db16048346200ce4 *R/exbio-update.R
+927bf46fa3a5ba00672f3334eaa3cc69 *man/exbio.Rd
+cecd78596075fc134aab6c56d122f048 *man/extraBinomial-package.Rd
